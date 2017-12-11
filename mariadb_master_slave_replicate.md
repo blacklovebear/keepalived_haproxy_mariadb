@@ -110,7 +110,7 @@ show master status;
 +------------------+----------+--------------+------------------+
 ```
 
-一旦获取了备份时正确的Binlog位点（文件名和偏移量），那么就可以用BINLOG_GTID_POS()函数来计算GTID，用于同步历史数据
+一旦获取了备份时正确的Binlog位点（文件名和偏移量），那么就可以用BINLOG_GTID_POS()函数来计算GTID
 
 ```
 SELECT BINLOG_GTID_POS("mysql-bin.000002", 635);
@@ -123,7 +123,7 @@ SELECT BINLOG_GTID_POS("mysql-bin.000002", 635);
 
 ## 从服务器Slave 配置
 172.18.88.45 (tospur-es2)   
-*正如官方所说从MariaDB 10.0.13版本开始只要设置 –master-data 或 –dump-slave 的同时设置 –gtid ，mysqldump 会自动完成历史数据导入工作*
+*正如官方所说从MariaDB 10.0.13版本开始，新的SLAVE可以通过设置 @@gtid_slave_pos 的值来设定复制的起始位置，用 CHANGE MASTER 把这个值传给主库，然后开始复制*
 ```
 # 需要输入密码：dbpass
 mysql -uroot -p
